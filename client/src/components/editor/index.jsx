@@ -16,9 +16,39 @@ const MainEditor = () => {
   const [loadAttempted, setLoadAttempted] = useState(false);
   const [error, setError] = useState(null);
 
-  const { Canvas, setDesignId } = useEditorStore();
+  const { canvas, setDesignId, resetStore } = useEditorStore();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    resetStore();
+    if (designId) setDesignId(designId);
+    return () => {
+      resetStore();
+    };
+  }, []);
+
+  useEffect(() => {
+    setLoadAttempted(false);
+    setError(null);
+  }, [designId]);
+
+
+  useEffect(()=>{
+    if(canvas){
+      console.log('canavs is now avalable ')
+    }
+  },[canvas])
+
+  useEffect(() => {
+    if (loading && !canvas && designId) {
+      const timer = setTimeout(() => {
+        if (loading) {
+          console.log("canvas time out");
+          setLoading(false);
+        }
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [canvas, loading, designId]);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">

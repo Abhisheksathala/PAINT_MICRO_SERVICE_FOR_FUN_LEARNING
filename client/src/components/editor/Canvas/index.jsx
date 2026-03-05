@@ -1,7 +1,10 @@
 'use client'
-import React from 'react'
+import React, { useRef } from 'react'
 
 const Canvas = () => {
+
+  const canvas = useRef(null)
+
   return (
     <div>Canvas</div>
   )
