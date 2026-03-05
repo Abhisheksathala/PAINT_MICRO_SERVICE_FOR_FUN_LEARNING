@@ -61,9 +61,12 @@ const Canvas = () => {
     };
 
     let timer = setTimeout(() => {
-      
-    }, 5000);
-    
+      initcanavs();
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   return <div>Canvas</div>;
