@@ -69,7 +69,14 @@ const Canvas = () => {
     };
   }, []);
 
-  return <div>Canvas</div>;
+  return (
+    <div
+      className="relative w-full h-[600px] overflow-hidden"
+      ref={canvasContainerRef}
+    >
+      <canvas ref={canvasRef} />
+    </div>
+  );
 };
 
 export default Canvas;

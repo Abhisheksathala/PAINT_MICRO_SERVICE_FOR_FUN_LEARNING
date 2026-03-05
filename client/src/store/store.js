@@ -1,5 +1,6 @@
 "use client";
 
+import { centerCanvas } from "@/fabric/Fabricutiles";
 import { create } from "zustand";
 
 export const useEditorStore = create((set, get) => ({

@@ -21,5 +21,15 @@ export const initializeFabric = async (CanvasEl, containerEl) => {
 };
 
 export const centerCanvas = (canvas) => {
-  if (canvas) return;
+  if (!canvas || !canvas.wrapperEl) return;
+
+  const canvasWrapper = canvas.wrapperEl;
+
+  canvasWrapper.style.width = `${canvas.width}px`;
+  canvasWrapper.style.height = `${canvas.height}px`;
+
+  canvasWrapper.style.position = "absolute";
+  canvasWrapper.style.top = "50%";
+  canvasWrapper.style.left = "50%";
+  canvasWrapper.style.transform = "translate(-50%,-50%)";
 };

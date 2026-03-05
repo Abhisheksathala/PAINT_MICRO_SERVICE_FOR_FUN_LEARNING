@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import Canvas from "./Canvas";
 import { useParams, useRouter } from "next/navigation";
 import { useEditorStore } from "@/store/store";
+import { getuserDesignByID } from "@/services/DesignService";
 
 const MainEditor = () => {
   const params = useParams();
@@ -19,10 +20,10 @@ const MainEditor = () => {
   const { canvas, setDesignId, resetStore } = useEditorStore();
 
   useEffect(() => {
-    resetStore();
+    // resetStore();
     if (designId) setDesignId(designId);
     return () => {
-      resetStore();
+      // resetStore();
     };
   }, []);
 
@@ -31,12 +32,11 @@ const MainEditor = () => {
     setError(null);
   }, [designId]);
 
-
-  useEffect(()=>{
-    if(canvas){
-      console.log('canavs is now avalable ')
+  useEffect(() => {
+    if (canvas) {
+      console.log("canavs is now avalable ");
     }
-  },[canvas])
+  }, [canvas]);
 
   useEffect(() => {
     if (loading && !canvas && designId) {
@@ -49,6 +49,28 @@ const MainEditor = () => {
       return () => clearTimeout(timer);
     }
   }, [canvas, loading, designId]);
+
+  const loadDesign = useCallback(async () => {
+    if (!canvas || !designId || loadAttempted) return;
+    try {
+      setLoadAttempted(true);
+      setLoading(true);
+
+      const res = await getuserDesignByID(designId);
+    } catch (e) {
+      console.error("error", e);
+      setError("filed to load ");
+      setLoading(false);
+    }
+  }, [canvas, designId, loadAttempted, setDesignId]);
+
+  useEffect(() => {
+    if (loading && designId && !canvas) {
+      loadDesign();
+    } else if (!designId) {
+      router.replace("/");
+    }
+  }, [canvas, designId, loadAttempted, loadDesign, router]);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
