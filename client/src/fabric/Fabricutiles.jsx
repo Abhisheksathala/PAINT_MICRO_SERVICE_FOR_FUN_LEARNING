@@ -25,12 +25,20 @@ export const centerCanvas = (canvas) => {
 
   const canvasWrapper = canvas.wrapperEl;
 
+  // canvasWrapper.style.width = `${canvas.width}px`;
+  // canvasWrapper.style.height = `${canvas.height}px`;
+
+  // canvasWrapper.style.position = "absolute";
+  // canvasWrapper.style.position = "absolute";
+  // canvasWrapper.style.top = "50%";
+  // canvasWrapper.style.left = "50%";
+  // canvasWrapper.style.transform = "translate(-50%,-50%)";
+  
   canvasWrapper.style.width = `${canvas.width}px`;
   canvasWrapper.style.height = `${canvas.height}px`;
 
   canvasWrapper.style.position = "absolute";
-  canvasWrapper.style.position = "absolute";
   canvasWrapper.style.top = "50%";
   canvasWrapper.style.left = "50%";
-  canvasWrapper.style.transform = "translate(-50%,-50%)";
+  canvasWrapper.style.transform = "translate(-50%, -50%)"
 };
