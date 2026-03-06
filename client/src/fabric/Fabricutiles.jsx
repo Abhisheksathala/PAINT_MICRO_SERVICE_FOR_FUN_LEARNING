@@ -29,6 +29,7 @@ export const centerCanvas = (canvas) => {
   canvasWrapper.style.height = `${canvas.height}px`;
 
   canvasWrapper.style.position = "absolute";
+  canvasWrapper.style.position = "absolute";
   canvasWrapper.style.top = "50%";
   canvasWrapper.style.left = "50%";
   canvasWrapper.style.transform = "translate(-50%,-50%)";

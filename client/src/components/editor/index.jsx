@@ -57,6 +57,57 @@ const MainEditor = () => {
       setLoading(true);
 
       const res = await getuserDesignByID(designId);
+      console.log(res);
+      const design = res.data;
+      if (design) {
+        // update name
+        // TODO:
+
+        // setDesignID the design id just incase after getting the data
+        setDesignId(designId);
+
+        try {
+          if (design.canvasData) {
+            canvas.clear();
+            if (design.width && design.height) {
+              canvas.setDimensions({
+                width: design.width,
+                height: design.height,
+              });
+            }
+            const canvasData =
+              typeof design.canvasData === "string"
+                ? JSON.parse(design.canvasData)
+                : design.canvasData;
+
+            const hasObjects =
+              canvasData &&
+              canvasData?.objects &&
+              canvasData?.objects?.length > 0;
+
+            if (canvasData.background) {
+              canvas?.backgroundColor = canvasData.background;
+            } else {
+              canvas.backgroundColor = "#ffffff";
+            }
+
+            if (!hasObjects) {
+              canvas.renderAll();
+              return null;
+            }
+          } else {
+            console.log("no canavasData");
+            canvas.clear();
+            canvas.setWidth(design.width);
+            canvas.setHeight(design.height);
+            canvas?.backgroundColor = "#000000";
+            canvas.renderAll();
+          }
+        } catch (error) {
+          console.log("error loading canvase", error);
+          setError("error loading canvase");
+        }
+      }
     } catch (e) {
       console.error("error", e);
       setError("filed to load ");
@@ -65,12 +116,18 @@ const MainEditor = () => {
   }, [canvas, designId, loadAttempted, setDesignId]);
 
   useEffect(() => {
-    if (loading && designId && !canvas) {
-      loadDesign();
-    } else if (!designId) {
+    if (!designId) {
       router.replace("/");
+      return;
     }
-  }, [canvas, designId, loadAttempted, router]);
+    if (canvas && designId && !loadAttempted) {
+      loadDesign();
+    }
+
+    // else if (!designId) {
+    //   router.replace("/");
+    // }
+  }, [canvas, designId, loadAttempted, router, loadDesign]);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
@@ -88,4 +145,4 @@ const MainEditor = () => {
 };
 
 export default MainEditor;
-loadDesign
+// loadDesign
