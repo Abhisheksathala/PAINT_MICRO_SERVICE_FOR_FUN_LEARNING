@@ -31,7 +31,7 @@ const Canvas = () => {
 
     const initcanavs = async () => {
       if (
-        typeof window === undefined ||
+        typeof window === "undefined" ||
         !canvasRef.current ||
         initAttemptedRef.current
       ) {
@@ -46,13 +46,13 @@ const Canvas = () => {
           canvasContainerRef.current,
         );
         if (!fabricCanavs) {
-          console.error("failed to load canvas js");
+          console.error("Failed to initialize Fabric.js canvas");
           return;
         }
         fabriccanvasRef.current = fabricCanavs;
         // set canavs in the store
         setCanvas(fabricCanavs);
-        console.log("canvas init is done and set in store");
+        console.log("Canvas init is done and set in store");
 
         //TODO:apply custome style for the controllers
       } catch (error) {
@@ -60,9 +60,10 @@ const Canvas = () => {
       }
     };
 
-    let timer = setTimeout(() => {
+    const timer = setTimeout(() => {
       initcanavs();
-    }, 500);
+      cleanUpCanvas();
+    }, 50);
 
     return () => {
       clearTimeout(timer);

@@ -20,10 +20,10 @@ const MainEditor = () => {
   const { canvas, setDesignId, resetStore } = useEditorStore();
 
   useEffect(() => {
-    // resetStore();
+    resetStore();
     if (designId) setDesignId(designId);
     return () => {
-      // resetStore();
+      resetStore();
     };
   }, []);
 
@@ -62,12 +62,10 @@ const MainEditor = () => {
       if (design) {
         // update name
         // TODO:
-
         // setDesignID the design id just incase after getting the data
         setDesignId(designId);
-
         try {
-          if (design.canvasData) {
+            if (design.canvasData) {
             canvas.clear();
             if (design.width && design.height) {
               canvas.setDimensions({
@@ -75,30 +73,31 @@ const MainEditor = () => {
                 height: design.height,
               });
             }
+
             const canvasData =
               typeof design.canvasData === "string"
                 ? JSON.parse(design.canvasData)
                 : design.canvasData;
 
             const hasObjects =
-              canvasData &&
-              canvasData?.objects &&
-              canvasData?.objects?.length > 0;
+              canvasData.objects && canvasData.objects.length > 0;
 
             if (canvasData.background) {
-             canvas.backgroundColor = canvasData.background;
+              canvas.backgroundColor = canvasData.background;
             } else {
               canvas.backgroundColor = "#ffffff";
             }
+
             if (!hasObjects) {
               canvas.renderAll();
-              return null;
+              return true;
             }
+
             canvas
               .loadFromJSON(design.canvasData)
               .then((canvas) => canvas.requestRenderAll());
           } else {
-            console.log("no canavasData");
+            console.log("no canvas data");
             canvas.clear();
             canvas.setWidth(design.width);
             canvas.setHeight(design.height);

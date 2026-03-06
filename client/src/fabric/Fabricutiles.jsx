@@ -8,10 +8,10 @@ export const initializeFabric = async (CanvasEl, containerEl) => {
       renderOnAddRemove: true,
     });
 
-    const bursh = new PencilBrush(canvas);
-    bursh.color = "#000000";
-    bursh.width = 5;
-    bursh.freeDrawingBrush = bursh;
+    const brush = new PencilBrush(canvas);
+    brush.color = "#000000";
+    brush.width = 5;
+    canvas.freeDrawingBrush = brush;
 
     return canvas;
   } catch (error) {

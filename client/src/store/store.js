@@ -16,7 +16,7 @@ export const useEditorStore = create((set, get) => ({
     set({
       designId: id,
     }),
-  restStore: () => {
+  resetStore: () => {
     set({
       canvas: null,
       designId: null,
