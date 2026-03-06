@@ -86,7 +86,7 @@ const MainEditor = () => {
               canvasData?.objects?.length > 0;
 
             if (canvasData.background) {
-              canvas?.backgroundColor = canvasData.background;
+             canvas.backgroundColor = canvasData.background;
             } else {
               canvas.backgroundColor = "#ffffff";
             }
@@ -102,7 +102,7 @@ const MainEditor = () => {
             canvas.clear();
             canvas.setWidth(design.width);
             canvas.setHeight(design.height);
-            canvas?.backgroundColor = "#ffffff";
+            canvas.backgroundColor = "#ffffff";
             canvas.renderAll();
           }
         } catch (error) {
