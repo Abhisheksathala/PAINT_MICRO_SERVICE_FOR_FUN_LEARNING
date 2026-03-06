@@ -90,17 +90,19 @@ const MainEditor = () => {
             } else {
               canvas.backgroundColor = "#ffffff";
             }
-
             if (!hasObjects) {
               canvas.renderAll();
               return null;
             }
+            canvas
+              .loadFromJSON(design.canvasData)
+              .then((canvas) => canvas.requestRenderAll());
           } else {
             console.log("no canavasData");
             canvas.clear();
             canvas.setWidth(design.width);
             canvas.setHeight(design.height);
-            canvas?.backgroundColor = "#000000";
+            canvas?.backgroundColor = "#ffffff";
             canvas.renderAll();
           }
         } catch (error) {
