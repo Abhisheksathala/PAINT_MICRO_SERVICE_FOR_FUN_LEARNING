@@ -70,7 +70,7 @@ const MainEditor = () => {
     } else if (!designId) {
       router.replace("/");
     }
-  }, [canvas, designId, loadAttempted, loadDesign, router]);
+  }, [canvas, designId, loadAttempted, router]);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
@@ -88,3 +88,4 @@ const MainEditor = () => {
 };
 
 export default MainEditor;
+loadDesign
