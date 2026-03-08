@@ -17,7 +17,7 @@ const MainEditor = () => {
   const [loadAttempted, setLoadAttempted] = useState(false);
   const [error, setError] = useState(null);
 
-  const { canvas, setDesignId, resetStore } = useEditorStore();
+  const { canvas, setDesignId, resetStore,setName } = useEditorStore();
 
   useEffect(() => {
     resetStore();
@@ -62,6 +62,7 @@ const MainEditor = () => {
       if (design) {
         // update name
         // TODO:
+        setName(design.name)
         // setDesignID the design id just incase after getting the data
         setDesignId(designId);
         try {

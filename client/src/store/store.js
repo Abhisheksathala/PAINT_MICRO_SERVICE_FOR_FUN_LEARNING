@@ -21,10 +21,16 @@ export const useEditorStore = create((set, get) => ({
     set({
       isEditing: flag,
     }),
+  name: "Untitled",
+  setName: (value) => {
+    set({ name: value });
+  },
   resetStore: () => {
     set({
       canvas: null,
       designId: null,
+      isEditing: true,
+      name:"unititled"
     });
   },
 }));
