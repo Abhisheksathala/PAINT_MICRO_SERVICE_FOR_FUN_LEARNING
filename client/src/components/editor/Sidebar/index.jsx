@@ -3,6 +3,7 @@ import { Grid } from "lucide-react";
 import React, { useState } from "react";
 import ElementsPanels from "./panels/Elements";
 import { Type } from "lucide-react";
+import Textpannel from "./panels/Text";
 
 const Sidebar = () => {
   const [isPanelCollapsed, setIspannelcollapsed] = useState(false);
@@ -19,13 +20,24 @@ const Sidebar = () => {
       id: "text",
       icons: Type,
       labal: "Text",
-      panel: () => ElementsPanels,
+      panel: () => Textpannel,
     },
+
   ];
 
   return (
     <div className="flex h-full">
-      <div className="sidebar"></div>
+      <div className="sidebar">
+        {
+          sidebarItems.map((items,index)=>{
+            return(
+              <>
+              <div className="" key={index}></div>
+              </>
+            )
+          })
+        }
+      </div>
     </div>
   );
 };
