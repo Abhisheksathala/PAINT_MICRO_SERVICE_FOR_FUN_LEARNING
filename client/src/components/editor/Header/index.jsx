@@ -6,16 +6,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useEditorStore } from "@/store/store";
 import { Eye } from "lucide-react";
 import { Pencil } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import React from "react";
 
 const Header = () => {
-
-
-  const {} = usefit
-
+  const {} = useEditorStore();
 
   return (
     <header className="header-gradient header flex items-center">
