@@ -44,6 +44,16 @@ const ElementsPanels = () => {
     return () => clearTimeout(timer);
   }, [isInitialized]);
 
+  useEffect(() => {
+    return () => {
+      Object.values(minicanvasRef.current).forEach((miniCanvas) => {
+        if (miniCanvas && typeof miniCanvas.dispose === "function") {
+          miniCanvas.dispose();
+        }
+      });
+    };
+  });
+
   return <div>Elements</div>;
 };
 
