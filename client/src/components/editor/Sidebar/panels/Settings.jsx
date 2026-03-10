@@ -9,12 +9,15 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { colorPresets } from "@/config";
+import { centerCanvas } from "@/fabric/Fabricutiles";
+import { useEditorStore } from "@/store/store";
 import { Check } from "lucide-react";
 import { Palette } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const Settingspannel = () => {
   const [backgroundColor, setBackgroundColor] = useState("#FFFFFF");
+  const {canvas} = useEditorStore()
 
   const handleColorChange = (e) => {
     const { value } = e.target;
@@ -25,7 +28,12 @@ const Settingspannel = () => {
     setBackgroundColor(value);
   };
 
-  const handlApplyeChngae = ()=>{}
+  const handlApplyeChngae = ()=>{
+    if(!canvas) return
+    canvas.set('backgroundColor',backgroundColor)
+    canvas.renderAll()
+    centerCanvas(canvas)
+  }
 
 
 
@@ -84,7 +92,7 @@ const Settingspannel = () => {
           />
         </div>
         <Separator className={'my-4'} />
-        <button className="w-full" onClick={handlApplyeChngae}>
+        <button className="w-full bg-black px-2 py-2 rounded-lg text-white font-semibold cursor-pointer hover:bg-black/90 transition-colors duration-300" onClick={handlApplyeChngae}>
           Apply Changes
         </button>
       </div>
