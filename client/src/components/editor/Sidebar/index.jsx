@@ -12,7 +12,8 @@ import { Settings } from "lucide-react";
 import { Sparkle } from "lucide-react";
 import { Upload } from "lucide-react";
 import { ArrowLeft } from "lucide-react";
-import { ChevronsRightLeftIcon } from "lucide-react";
+import { ChevronsLeft } from "lucide-react";
+import Uploadpannel from "./panels/Upload";
 
 const Sidebar = () => {
   const [isPanelCollapsed, setIspannelcollapsed] = useState(false);
@@ -29,7 +30,7 @@ const Sidebar = () => {
   };
 
   const togglepanelCollapse = (e) => {
-    // e.stopPrpagation();
+    e.stopPropagation();
     setIspannelcollapsed(!isPanelCollapsed);
   };
 
@@ -38,37 +39,37 @@ const Sidebar = () => {
       id: "elements",
       icons: Grid,
       labal: "Elements",
-      panel: () => ElementsPanels,
+      panel: () => <ElementsPanels/>,
     },
     {
       id: "text",
       icons: Type,
       labal: "Text",
-      panel: () => Textpannel,
+      panel: () => <Textpannel/>,
     },
     {
       id: "Uploads",
       icons: Upload,
       labal: "Upload",
-      panel: () => Textpannel,
+      panel: () => <Uploadpannel/>,
     },
     {
       id: "Draw",
       icons: Pencil,
       labal: "Draw",
-      panel: () => Drawpannel,
+      panel: () => <Drawpannel/>,
     },
     {
       id: "settings",
       icons: Settings,
       labal: "settings",
-      panel: () => Settingspannel,
+      panel: () => <Settingspannel/>,
     },
     {
       id: "Ai",
       icons: Sparkle,
       labal: "Ai",
-      panel: () => Aipannel,
+      panel: () => <Aipannel/>,
     },
   ];
 
@@ -110,9 +111,11 @@ const Sidebar = () => {
             </button>
             <span className="panel-title">{activeItem.labal}</span>
           </div>
-          <div className="panel-content">{activeItem.panel()}</div>
+          <div className="panel-content">
+            {activeItem.panel()}
+            </div>
           <button className="collapse-button" onClick={togglepanelCollapse}>
-            <ChevronsRightLeftIcon className="w-5 h-5" />
+            <ChevronsLeft className="w-5 h-5" />
           </button>
         </div>
       )}
