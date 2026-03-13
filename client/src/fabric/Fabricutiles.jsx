@@ -1,3 +1,6 @@
+import { createShap } from "./Shapfactorie";
+import { shapeDefinations } from "./Shaps";
+
 export const initializeFabric = async (CanvasEl, containerEl) => {
   try {
     const { Canvas, Rect, PencilBrush } = await import("fabric");
@@ -32,4 +35,26 @@ export const centerCanvas = (canvas) => {
   canvasWrapper.style.top = "50%";
   canvasWrapper.style.left = "50%";
   canvasWrapper.style.transform = "translate(-50%, -50%)";
+};
+
+export const addShapToCanvas = async (canvas, shapeTypes, CustomProps = {}) => {
+  if (!canvas) return null;
+  try {
+    const fabricModule = await import("fabric");
+    const shape = createShap(fabricModule, shapeTypes, shapeDefinations, {
+      left: 100,
+      top: 100,
+      ...CustomProps,
+    });
+
+    if (shape) {
+      shape.id = `${shapeTypes}-${Date.now()}`;
+      canvas.add(shape);
+      canvas.renderAll();
+      canvas.setActiveObject(shape);
+      return shape;
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };

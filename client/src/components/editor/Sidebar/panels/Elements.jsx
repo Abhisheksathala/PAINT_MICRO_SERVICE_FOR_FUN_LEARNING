@@ -1,5 +1,6 @@
 "use client";
 
+import { addShapToCanvas } from "@/fabric/Fabricutiles";
 import { shapeDefinations, shapeTypes } from "@/fabric/Shaps";
 import { useEditorStore } from "@/store/store";
 import { useEffect, useRef, useState } from "react";
@@ -11,6 +12,7 @@ const ElementsPanels = () => {
   const canvasElementRef = useRef({});
 
   const [isInitialized, setIsInitialized] = useState(false);
+
   useEffect(() => {
     if (isInitialized) return;
     const timer = setTimeout(async () => {
@@ -23,10 +25,10 @@ const ElementsPanels = () => {
           canvasElement.id = canvasId;
           try {
             const definition = shapeDefinations[shapeType];
-            const minicanvas = new fabric.StaticCanvas({
+            const minicanvas = new fabric.StaticCanvas(canvasElement, {
               width: 100,
               height: 100,
-              backgroundColor: "trnasparent",
+              backgroundColor: "transparent",
               renderOnAddRemove: true,
             });
             minicanvasRef.current[shapeType] = minicanvas;
@@ -38,7 +40,7 @@ const ElementsPanels = () => {
         }
         setIsInitialized(true);
       } catch (error) {
-        console.log(object);
+        console.log(error);
       }
     }, 100);
     return () => clearTimeout(timer);
@@ -51,10 +53,49 @@ const ElementsPanels = () => {
           miniCanvas.dispose();
         }
       });
+      minicanvasRef.current = {};
+      setIsInitialized(false);
     };
-  });
+  }, []);
 
-  return <div>Elements</div>;
+  const setCanvasRef = (getCurrentElement, shapeType) => {
+    if (getCurrentElement) {
+      canvasElementRef.current[shapeType] = getCurrentElement;
+    }
+  };
+
+  const handlesaveclick = async (type) => {
+    addShapToCanvas(canvas, type);
+  };
+
+  return (
+    <div className="h-full overflow-y-auto">
+      <div className="p-4">
+        <div className="grid grid-cols-3 gap-1">
+          {shapeTypes.map((shapsType, index) => {
+            return (
+              <>
+                <div
+                  style={{
+                    height: "90px",
+                  }}
+                  className="cursor-pointer flex flex-col items-center justify-center"
+                  key={shapsType || index}
+                  onClick={() => handlesaveclick(shapsType)}
+                >
+                  <canvas
+                    width={"100"}
+                    height={"100"}
+                    ref={(el) => setCanvasRef(el, shapsType)}
+                  />
+                </div>
+              </>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ElementsPanels;
