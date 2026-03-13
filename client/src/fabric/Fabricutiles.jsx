@@ -97,3 +97,6 @@ export const addTexttocanvas = async (
     return null;
   }
 };
+
+
+export const 
