@@ -39,37 +39,37 @@ const Sidebar = () => {
       id: "elements",
       icons: Grid,
       labal: "Elements",
-      panel: () => <ElementsPanels/>,
+      panel: () => <ElementsPanels />,
     },
     {
       id: "text",
       icons: Type,
       labal: "Text",
-      panel: () => <Textpannel/>,
+      panel: () => <Textpannel />,
     },
     {
       id: "Uploads",
       icons: Upload,
       labal: "Upload",
-      panel: () => <Uploadpannel/>,
+      panel: () => <Uploadpannel />,
     },
     {
       id: "Draw",
       icons: Pencil,
       labal: "Draw",
-      panel: () => <Drawpannel/>,
+      panel: () => <Drawpannel />,
     },
     {
       id: "settings",
       icons: Settings,
       labal: "settings",
-      panel: () => <Settingspannel/>,
+      panel: () => <Settingspannel />,
     },
     {
       id: "Ai",
       icons: Sparkle,
       labal: "Ai",
-      panel: () => <Aipannel/>,
+      panel: () => <Aipannel />,
     },
   ];
 
@@ -98,11 +98,10 @@ const Sidebar = () => {
       {activeSidebar && (
         <div
           className={`secondary-panel ${isPanelCollapsed ? "collapse" : ""}`}
-
           style={{
-            width:`${isPanelCollapsed ? '0' : '350px'}`,
-            opacity:`${isPanelCollapsed ? 0 : 1}`,
-            overflow:`${isPanelCollapsed ? 'hidden' : 'visible'}`
+            width: `${isPanelCollapsed ? "0" : "350px"}`,
+            opacity: `${isPanelCollapsed ? 0 : 1}`,
+            overflow: `${isPanelCollapsed ? "hidden" : "visible"}`,
           }}
         >
           <div className="panel-header">
@@ -111,9 +110,7 @@ const Sidebar = () => {
             </button>
             <span className="panel-title">{activeItem.labal}</span>
           </div>
-          <div className="panel-content">
-            {activeItem.panel()}
-            </div>
+          <div className="panel-content">{activeItem.panel()}</div>
           <button className="collapse-button" onClick={togglepanelCollapse}>
             <ChevronsLeft className="w-5 h-5" />
           </button>

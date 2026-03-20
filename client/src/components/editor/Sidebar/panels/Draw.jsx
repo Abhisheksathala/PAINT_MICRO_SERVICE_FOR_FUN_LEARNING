@@ -5,6 +5,11 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { brushSizes, drawingPanelColorPresets } from "@/config";
+import {
+  toggledrawingMode,
+  toggleEraseMode,
+  updateDrawingBrush,
+} from "@/fabric/Fabricutiles";
 import { useEditorStore } from "@/store/store";
 import { Droplet } from "lucide-react";
 import { Eraser } from "lucide-react";
@@ -30,19 +35,41 @@ const Drawpannel = () => {
     if (newMode && isErasing) {
       setIsErasing(false);
     }
+
+    // handing draw mode
+    toggledrawingMode(canvas, newMode, drewingColor, brushwidth);
+  };
+
+  const handleDrawingcolorChnage = (color) => {
+    setDrewingColor(color);
+    // handle brushcolor update
+    if (canvas && isdrwaing && !isErasing) {
+      updateDrawingBrush(canvas, { color });
+    }
   };
 
   const handlebrrushwithchnage = (width) => {
     setBrushwidth(width);
+    // handle canavs bresh width
+    if (canvas && isdrwaing) {
+      updateDrawingBrush(canvas, { width: isErasing ? width * 2 : width });
+    }
   };
 
   const handleopacity = (e) => {
-    setDrawingOpacity(e);
+    const opacity = Number(e[0]);
+    setDrawingOpacity(opacity);
+    // change opacity
+    if (canvas && isdrwaing && !isErasing) {
+      updateDrawingBrush(canvas, { opacity: opacity / 100 });
+    }
   };
 
   const handleToggelerasing = () => {
+    if (!canvas && !isdrwaing) return;
     const newMode = !isErasing;
     setIsErasing(newMode);
+    toggleEraseMode(canvas, newMode, drewingColor, brushwidth * 2);
   };
 
   return (
@@ -98,6 +125,7 @@ const Drawpannel = () => {
                       <>
                         <div className="" key={colors}>
                           <button
+                            onClick={() => handleDrawingcolorChnage(colors)}
                             className={`w-10 h-10 rounded-full border transition-transform hover:scale-110 ${colors === drewingColor ? "ring-1 ring-offset-2 ring-primary" : ""}`}
                             style={{
                               backgroundColor: colors,
@@ -134,7 +162,10 @@ const Drawpannel = () => {
                   </Label>
                   <div className="flex items-center space-x-3">
                     <Minus
-                      onClick={() => setBrushwidth((prev) => prev - 1)}
+                      // onClick={() => {
+                      //   setBrushwidth((prev) => prev - 1);
+                      // }}
+                      onClick={() => handlebrrushwithchnage(brushwidth - 1)}
                       className="h-4 w-4 text-gray-500 cursor-pointer"
                     />
                     <Slider
@@ -142,23 +173,24 @@ const Drawpannel = () => {
                       min={1}
                       max={30}
                       step={1}
-                      onValueChange={(val) => setBrushwidth(val[0])}
+                      onValueChange={(val) => handlebrrushwithchnage(val[0])}
                       className={"flex-1"}
                     />
                     <Plus
-                      onClick={() => setBrushwidth((prev) => prev + 1)}
+                      // onClick={() => setBrushwidth((prev) => prev + 1)}
+                      onClick={() => handlebrrushwithchnage(brushwidth + 1)}
                       className="h-4 w-4 text-gray-500 cursor-pointer"
                     />
                     <p>{brushwidth}</p>
                   </div>
                   <div className="grid grid-cols-3 gap-2">
-                    {brushSizes.map((size) => (
+                    {brushSizes.map((size, i) => (
                       <Button
+                        key={i}
                         variant={
                           size.value === brushwidth ? "default" : "outline"
                         }
                         className={"px-2 py-1 h-auto"}
-                        key={size}
                         onClick={() => handlebrrushwithchnage(size.value)}
                       >
                         {size.label}
@@ -180,7 +212,7 @@ const Drawpannel = () => {
                       min={1}
                       max={100}
                       step={1}
-                      onValueChange={(val) => handleopacity(val[0])}
+                      onValueChange={(val) => handleopacity(val)}
                       className={"flex-1"}
                     />
                   </div>
