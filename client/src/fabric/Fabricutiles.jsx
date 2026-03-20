@@ -99,4 +99,6 @@ export const addTexttocanvas = async (
 };
 
 
-export const 
+export const toggledrawingMode = (canvas,isDrawing,drawingColor="#000000")=>{
+
+}
