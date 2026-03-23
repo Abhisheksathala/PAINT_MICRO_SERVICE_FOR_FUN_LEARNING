@@ -3,6 +3,7 @@
 import { Label } from "@/components/ui/label";
 import { fetchWithAuth } from "@/services/baseService";
 import { useEditorStore } from "@/store/store";
+import { method } from "lodash";
 import { Upload } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
