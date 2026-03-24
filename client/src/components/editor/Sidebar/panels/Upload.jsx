@@ -9,6 +9,7 @@ import { Upload } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
+import { addImageTocanavs } from "@/fabric/Fabricutiles";
 
 const Uploadpannel = () => {
   const { canvas } = useEditorStore();
@@ -55,6 +56,11 @@ const Uploadpannel = () => {
     }
   };
 
+  const handleaddimage = (imageurl) => {
+    if (!canvas) return;
+    addImageTocanavs(canvas, imageurl);
+  };
+
   return (
     <div className="h-full overflow-y-auto">
       <div className="p-4 space-y-4">
@@ -85,6 +91,7 @@ const Uploadpannel = () => {
                 return (
                   <div
                     key={index}
+                    onClick={() => handleaddimage(item.url)}
                     className="aspect-auto bg-gray-50 rounded-md overflow-hidden hover:opacity-85 transition-opacity "
                   >
                     <img
