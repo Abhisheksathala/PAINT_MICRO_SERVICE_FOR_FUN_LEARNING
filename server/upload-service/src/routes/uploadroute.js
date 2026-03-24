@@ -9,7 +9,7 @@ import authenticatedRequest from "../middleware/auth.middleware.js";
 const mediaRoute = express.Router();
 
 const upload = multer({
-  storage: multer.memoryStorage,
+  storage: multer.memoryStorage(),
   limits: 10 * 1024 * 1024,
 }).single("file");
 
@@ -36,8 +36,8 @@ mediaRoute.post(
           message: "file not found ",
         });
       }
+      next();
     });
-    next();
   },
   uploadMedia,
 );

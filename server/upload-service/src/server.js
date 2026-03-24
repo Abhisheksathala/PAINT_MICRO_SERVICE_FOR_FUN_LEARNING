@@ -32,7 +32,7 @@ app.use("/api/media", mediaRoute);
 async function startServer() {
   try {
     app.listen(PORT, () => {
-      console.log(`upload Service is running on port ${PORT}${MONGO}`);
+      console.log(`upload Service is running on port ${PORT}`);
     });
   } catch (error) {
     console.error("Error starting server:", error);

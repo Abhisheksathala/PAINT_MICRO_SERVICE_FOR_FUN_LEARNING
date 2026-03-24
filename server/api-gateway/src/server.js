@@ -28,14 +28,14 @@ const proxyOptions = {
 app.use(
   "/v1/designs",
   authMiddleware,
-  proxy(process.env.DESIGN || "http:localhost:5001", {
+  proxy(process.env.DESIGN || "http://localhost:5001", {
     ...proxyOptions,
   }),
 );
 app.use(
   "/v1/media",
   authMiddleware,
-  proxy(process.env.UPLOADS || "http:localhost:5002", {
+  proxy(process.env.UPLOADS || "http://localhost:5002", {
     ...proxyOptions,
     parseReqBody: false,
   }),
@@ -45,7 +45,7 @@ app.use(
 app.use(
   "/v1/subscriptions",
   authMiddleware,
-  proxy(process.env.SUBSCRIPTION || "http:localhost:5003", {
+  proxy(process.env.SUBSCRIPTION || "http://localhost:5003", {
     ...proxyOptions,
   }),
 );

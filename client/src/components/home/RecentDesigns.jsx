@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 function RecentDesigns() {
   const [userDesigns, setUserDesigns] = React.useState([]);
 
-    const router = useRouter();
+  const router = useRouter();
   // const designs = Array(6)
   //   .fill(null)
   //   .map((_, i) => ({
@@ -38,9 +38,14 @@ function RecentDesigns() {
       >
         {userDesigns && userDesigns.length > 0 ? (
           userDesigns.map((design) => (
-            <div onClick={()=>router.push(`/edit/${design?._id}`)} key={design.id}>
+            <div
+              onClick={() => router.push(`/edit/${design?._id}`)}
+              key={design.id}
+            >
               <div className="aspect-video bg-gray-100 rounded-lg mb-2 overflow-hidden transition-shadow group-hover:shadow-md cursor-pointer">
-                <img
+                <Image
+                  width={200}
+                  height={200}
                   src={design.image}
                   alt={design.name}
                   className="w-full h-full object-cover"

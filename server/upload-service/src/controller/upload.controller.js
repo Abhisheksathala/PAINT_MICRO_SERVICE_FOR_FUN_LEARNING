@@ -4,7 +4,7 @@ import uploadModel from "../models/medis.js";
 export const uploadMedia = async (req, res) => {
   try {
     const userId = req.userId;
-    if (!req.file || !req.file.buffer) {
+    if (!req.file) {
       return res.status(400).json({
         success: false,
         message: "no file found bro",
@@ -31,7 +31,7 @@ export const uploadMedia = async (req, res) => {
     return res.status(200).json({
       success: true,
       data: newCreatedMedia,
-      message: "featched successfuly ",
+      message: "uploaded successfuly ",
     });
   } catch (error) {
     console.log(error);
@@ -63,7 +63,7 @@ export const getallmediabyuser = async (req, res) => {
     return res.status(200).json({
       success: false,
       data: media,
-      message: error.message || "featched successfuly ",
+      message: "featched successfuly ",
     });
   } catch (error) {
     console.log(error);

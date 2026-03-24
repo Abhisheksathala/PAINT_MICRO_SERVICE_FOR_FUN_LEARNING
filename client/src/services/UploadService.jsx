@@ -13,13 +13,13 @@ export async function uploadFileWithAuth(file, metaData = {}) {
     const formData = new FormData();
 
     formData.append("file", file);
-    object.entries(metaData).forEach(([keyBy, value]) => {
+    Object.entries(metaData).forEach(([keyBy, value]) => {
       formData.append(keyBy, value);
     });
 
     try {
       const response = await axios.post(
-        `${API_URL}${endpoint}/v1/media/upload`,
+        `${API_URL}/v1/media/upload`,
         formData,
         {
           headers: {
@@ -34,6 +34,7 @@ export async function uploadFileWithAuth(file, metaData = {}) {
       throw new Error("upload Failed");
     }
   } catch (error) {
+     console.log("REAL ERROR:", error.response || error.message);
     throw new Error("API REQUEST FAILED");
   }
 }

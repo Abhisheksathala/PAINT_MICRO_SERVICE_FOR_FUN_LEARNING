@@ -2,11 +2,13 @@
 
 import { Label } from "@/components/ui/label";
 import { fetchWithAuth } from "@/services/baseService";
+import { uploadFileWithAuth } from "@/services/UploadService";
 import { useEditorStore } from "@/store/store";
 import { method } from "lodash";
 import { Upload } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
 
 const Uploadpannel = () => {
   const { canvas } = useEditorStore();
@@ -22,7 +24,6 @@ const Uploadpannel = () => {
     try {
       setLoading(true);
       const data = await fetchWithAuth("/v1/media/get");
-      console.log(data, "featch user uploads");
       setUserUploades(data?.data || []);
     } catch (error) {
       console.log(error);
@@ -36,7 +37,22 @@ const Uploadpannel = () => {
   }, [status, featchUserUploads]);
 
   const handlefileUpload = async (e) => {
-    console.log(e.target.files);
+    const files = e.target.files;
+    if (!files || files.length === 0) {
+      console.log("No file selected ");
+      return;
+    }
+    const file = files[0];
+    setIsUploading(true);
+    try {
+      const response = await uploadFileWithAuth(file);
+      // setUserUploades((prev) => [...response?.data, ...prev]);
+      setUserUploades((prev) => [response?.data, ...prev]);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -57,6 +73,35 @@ const Uploadpannel = () => {
             onChange={handlefileUpload}
           />
         </Label>
+        <div className="m-5">
+          <h4 className="text-sm text-gray-500">your uploads</h4>
+          {loading ? (
+            <div className="border p-6 flex rounded-md items-center justify-center">
+              <p className="font-bold text-sm ">Loading your uploads....</p>
+            </div>
+          ) : userUploads.length > 0 ? (
+            <div className="grid grid-cols-3 gap-4">
+              {userUploads.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="aspect-auto bg-gray-50 rounded-md overflow-hidden hover:opacity-85 transition-opacity "
+                  >
+                    <img
+                      // width={200}
+                      // height={200}
+                      src={item.url}
+                      alt={item.name}
+                      className="w-full h-full object-cover transition-opacity relative group"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div>No uploads Yet</div>
+          )}
+        </div>
       </div>
     </div>
   );

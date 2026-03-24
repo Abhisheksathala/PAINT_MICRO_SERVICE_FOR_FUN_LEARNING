@@ -84,7 +84,8 @@ const MainEditor = () => {
               canvasData.objects && canvasData.objects.length > 0;
 
             if (canvasData.background) {
-              canvas.backgroundColor = canvasData.background;
+              // canvas.backgroundColor = canvasData.background;
+              canvas.setBackgroundColor(canvasData.background, canvas.renderAll.bind(canvas));
             } else {
               canvas.backgroundColor = "#ffffff";
             }

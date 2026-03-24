@@ -10,9 +10,10 @@ const connectCloudinary = async () => {
 };
 
 export { cloudinary, connectCloudinary };
+connectCloudinary()
 
 export const uploadMediaToCloudinary = (file) => {
-  return new Promise((resove, reject) => {
+  return new Promise((resolve, reject) => {
     const uploadStram = cloudinary.uploader.upload_stream(
       {
         resource_type: "auto",
@@ -21,7 +22,7 @@ export const uploadMediaToCloudinary = (file) => {
         if (error) {
           reject(error);
         } else {
-          resove(result);
+          resolve(result);
         }
       },
     );

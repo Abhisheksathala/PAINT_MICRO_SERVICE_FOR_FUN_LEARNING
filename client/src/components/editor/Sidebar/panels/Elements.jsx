@@ -74,7 +74,7 @@ const ElementsPanels = () => {
         <div className="grid grid-cols-3 gap-1">
           {shapeTypes.map((shapsType, index) => {
             return (
-              <>
+           
                 <div
                   style={{
                     height: "90px",
@@ -89,7 +89,7 @@ const ElementsPanels = () => {
                     ref={(el) => setCanvasRef(el, shapsType)}
                   />
                 </div>
-              </>
+         
             );
           })}
         </div>
