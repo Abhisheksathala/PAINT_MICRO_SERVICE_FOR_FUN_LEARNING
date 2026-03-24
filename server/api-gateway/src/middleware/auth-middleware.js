@@ -14,7 +14,7 @@ async function authMiddleware(req, res, next) {
       audience: process.env.GOOGLE_CLIENT_ID,
     });
     const payload = ticket.getPayload();
-    console.log("payload", payload);
+    // console.log("payload", payload);
     req.user = {
       userId: payload["sub"],
       email: payload["email"],

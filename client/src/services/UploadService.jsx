@@ -43,7 +43,7 @@ export async function uploadFileWithAuth(file, metaData = {}) {
 
 export async function GenrateimageWithAi(prompt) {
   try {
-    const response = await fetchWithAuth("/v1/media/upload/ai-image-genrate", {
+    const response = await fetchWithAuth("/v1/media/ai-image-genrate", {
       method: "POST",
       body: {
         prompt,

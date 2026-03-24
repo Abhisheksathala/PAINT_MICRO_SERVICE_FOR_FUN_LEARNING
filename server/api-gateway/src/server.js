@@ -33,11 +33,19 @@ app.use(
   }),
 );
 app.use(
-  "/v1/media",
+  "/v1/media/upload",
   authMiddleware,
   proxy(process.env.UPLOADS || "http://localhost:5002", {
     ...proxyOptions,
     parseReqBody: false,
+  }),
+);
+app.use(
+  "/v1/media",
+  authMiddleware,
+  proxy(process.env.UPLOADS || "http://localhost:5002", {
+    ...proxyOptions,
+    parseReqBody: true,
   }),
 );
 

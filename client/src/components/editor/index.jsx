@@ -17,7 +17,7 @@ const MainEditor = () => {
   const [loadAttempted, setLoadAttempted] = useState(false);
   const [error, setError] = useState(null);
 
-  const { canvas, setDesignId, resetStore,setName } = useEditorStore();
+  const { canvas, setDesignId, resetStore, setName } = useEditorStore();
 
   useEffect(() => {
     resetStore();
@@ -62,11 +62,11 @@ const MainEditor = () => {
       if (design) {
         // update name
         // TODO:
-        setName(design.name)
+        setName(design.name);
         // setDesignID the design id just incase after getting the data
         setDesignId(designId);
         try {
-            if (design.canvasData) {
+          if (design.canvasData) {
             canvas.clear();
             if (design.width && design.height) {
               canvas.setDimensions({
@@ -85,7 +85,10 @@ const MainEditor = () => {
 
             if (canvasData.background) {
               // canvas.backgroundColor = canvasData.background;
-              canvas.setBackgroundColor(canvasData.background, canvas.renderAll.bind(canvas));
+              canvas.setBackgroundColor(
+                canvasData.background,
+                canvas.renderAll.bind(canvas),
+              );
             } else {
               canvas.backgroundColor = "#ffffff";
             }

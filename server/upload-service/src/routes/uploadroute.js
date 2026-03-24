@@ -44,6 +44,6 @@ mediaRoute.post(
 );
 
 mediaRoute.get("/get", getallmediabyuser);
-mediaRoute.get("/ai-image-genrate", genrateImageFromAIAndUpload);
+mediaRoute.post("/ai-image-genrate", genrateImageFromAIAndUpload);
 
 export default mediaRoute;

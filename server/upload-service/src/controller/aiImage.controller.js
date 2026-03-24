@@ -3,7 +3,7 @@ import { uploadMediaToCloudinary } from "../util/cloudinary.js";
 import uploadModel from "../models/medis.js";
 
 const STABILITYAI_API_KEY = process.env.STABILITYAI_API_KEY;
-const STABILITYAI_ENGINE_ID = "stable-diffusion-v1-6";
+const STABILITYAI_ENGINE_ID = "stable-diffusion-xl-1024-v1-0";
 const STABILITYAI_API_HOST = "https://api.stability.ai";
 
 export const genrateImageFromAIAndUpload = async (req, res) => {
