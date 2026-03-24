@@ -1,5 +1,7 @@
 import axios from "axios";
 import { getSession } from "next-auth/react";
+import { fetchWithAuth } from "./baseService";
+import { method } from "lodash";
 
 const API_URL = process.env.API_URL || "http://localhost:5000";
 
@@ -34,7 +36,21 @@ export async function uploadFileWithAuth(file, metaData = {}) {
       throw new Error("upload Failed");
     }
   } catch (error) {
-     console.log("REAL ERROR:", error.response || error.message);
+    console.log("REAL ERROR:", error.response || error.message);
     throw new Error("API REQUEST FAILED");
+  }
+}
+
+export async function GenrateimageWithAi(prompt) {
+  try {
+    const response = await fetchWithAuth("/v1/media/upload/ai-image-genrate", {
+      method: "POST",
+      body: {
+        prompt,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
   }
 }

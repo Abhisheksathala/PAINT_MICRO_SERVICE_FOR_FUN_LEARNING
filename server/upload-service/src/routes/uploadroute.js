@@ -4,6 +4,7 @@ import {
   uploadMedia,
   getallmediabyuser,
 } from "../controller/upload.controller.js";
+import { genrateImageFromAIAndUpload } from "../controller/aiImage.controller.js";
 import authenticatedRequest from "../middleware/auth.middleware.js";
 
 const mediaRoute = express.Router();
@@ -43,5 +44,6 @@ mediaRoute.post(
 );
 
 mediaRoute.get("/get", getallmediabyuser);
+mediaRoute.get("/ai-image-genrate", genrateImageFromAIAndUpload);
 
 export default mediaRoute;
