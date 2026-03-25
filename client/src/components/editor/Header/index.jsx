@@ -14,16 +14,25 @@ import { Star } from "lucide-react";
 import { Eye } from "lucide-react";
 import { Pencil } from "lucide-react";
 import { ChevronDown } from "lucide-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
 
 const Header = () => {
-  const { isEditing, setIsEditing, name, setName } = useEditorStore();
+  const { isEditing, setIsEditing, name, setName, canvas } = useEditorStore();
   const { data: session } = useSession();
 
   async function handlelogout() {
     await signOut();
   }
+
+  useEffect(() => {
+    if (!canvas) return;
+    canvas.selection = isEditing;
+    canvas.getObjects().forEach((obj) => {
+      obj.selectable = isEditing;
+      obj.evented = isEditing;
+    });
+  }, [isEditing]);
 
   return (
     <header className="header-gradient header flex items-center justify-between">

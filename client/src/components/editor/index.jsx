@@ -7,6 +7,7 @@ import Canvas from "./Canvas";
 import { useParams, useRouter } from "next/navigation";
 import { useEditorStore } from "@/store/store";
 import { getuserDesignByID } from "@/services/DesignService";
+import Properties from "./properties";
 
 const MainEditor = () => {
   const params = useParams();
@@ -17,7 +18,15 @@ const MainEditor = () => {
   const [loadAttempted, setLoadAttempted] = useState(false);
   const [error, setError] = useState(null);
 
-  const { canvas, setDesignId, resetStore, setName } = useEditorStore();
+  const {
+    canvas,
+    setDesignId,
+    resetStore,
+    setName,
+    setShowProperties,
+    showProperties,
+    isEditing,
+  } = useEditorStore();
 
   useEffect(() => {
     resetStore();
@@ -135,17 +144,43 @@ const MainEditor = () => {
     // }
   }, [canvas, designId, loadAttempted, router, loadDesign]);
 
+  useEffect(() => {
+    if (!canvas) return;
+    const handleSelectionCreated = () => {
+      const activeObject = canvas.getActiveObject();
+      if (activeObject) {
+        setShowProperties(true);
+      }
+    };
+    const handleselectionClear = () => {
+      setShowProperties(false);
+    };
+    canvas.on("selection:created", handleSelectionCreated);
+    canvas.on("selection:updated", handleSelectionCreated);
+    canvas.on("selection:cleared", handleselectionClear);
+
+    return () => {
+      canvas.off("selection:created", handleSelectionCreated);
+      canvas.off("selection:updated", handleSelectionCreated);
+      canvas.off("selection:cleared", handleselectionClear);
+    };
+  }, [canvas]);
+
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-screen overflow-hidden relative">
       <Header />
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar />
+        {isEditing && <Sidebar />}
+
         <div className="flex-1 flex flex-col overflow-hidden relative">
           <main className="flex-1 overflow-hidden bg-[#f0f0f0] flex items-center justify-center">
             <Canvas />
           </main>
         </div>
       </div>
+      {showProperties && (
+        <div className="relative">{isEditing && <Properties />}</div>
+      )}
     </div>
   );
 };

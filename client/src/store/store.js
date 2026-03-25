@@ -25,12 +25,17 @@ export const useEditorStore = create((set, get) => ({
   setName: (value) => {
     set({ name: value });
   },
+  showProperties: false,
+  setShowProperties: (falg) => {
+    set({ showProperties: falg });
+  },
   resetStore: () => {
     set({
       canvas: null,
       designId: null,
       isEditing: true,
-      name:"unititled"
+      name: "unititled",
+      showProperties: false,
     });
   },
 }));
