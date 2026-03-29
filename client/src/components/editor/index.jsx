@@ -99,7 +99,7 @@ const MainEditor = () => {
                 canvas.renderAll.bind(canvas),
               );
             } else {
-              canvas.backgroundColor = "#ffffff";
+               canvas.backgroundColor = "#ffffff";
             }
 
             if (!hasObjects) {

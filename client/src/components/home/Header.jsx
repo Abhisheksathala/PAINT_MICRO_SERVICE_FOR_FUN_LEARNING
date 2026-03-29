@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
 } from "../ui/dropdown-menu";
 import { AvatarFallback, Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "../ui/button";
 
 const Header = () => {
   const { data: session } = useSession();
@@ -36,7 +37,7 @@ const Header = () => {
           <div className="flex items-center gap-1 cursor-pointer">
             <DropdownMenu>
               <DropdownMenuTrigger aschild>
-                <button className="flex items-center space-x-2 focus:outline-none ">
+                <Button className="flex items-center space-x-2 focus:outline-none ">
                   <Avatar>
                     <AvatarFallback>
                       {session?.user?.name?.[0] || "u"}
@@ -48,7 +49,7 @@ const Header = () => {
                   <span className="text-sm font-medium hidden lg:block">
                     {session?.user?.name || "user"}
                   </span>
-                </button>
+                </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className={"w-56"}>
                 <DropdownMenuItem

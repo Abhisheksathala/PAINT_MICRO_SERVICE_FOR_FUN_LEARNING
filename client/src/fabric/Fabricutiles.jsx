@@ -68,10 +68,6 @@ export const addTexttocanvas = async (
   withBackground = false,
 ) => {
   if (!canvas) return null;
-
-  alert(canvas);
-  alert(text);
-
   try {
     const { IText } = await import("fabric");
 
@@ -84,17 +80,13 @@ export const addTexttocanvas = async (
       textAlign: "left",
       id: `text-${Date.now()}`,
     };
-    alert(defaultprops);
-
     const textObj = new IText(text, { ...defaultprops, ...options });
-    alert(textObj);
     canvas.add(textObj);
     canvas.setActiveObject(textObj);
     canvas.renderAll();
 
     return textObj;
   } catch (error) {
-    alert(error);
     console.log("error in adding text", error);
     return null;
   }
@@ -211,5 +203,82 @@ export const addImageTocanavs = async (canvas, imageUrl) => {
   } catch (error) {
     console.log(error);
     return null;
+  }
+};
+
+export const cloneSelectedObject = async (canvas) => {
+  if (!canvas) return;
+
+  const activeObject = canvas.getActiveObject();
+  if (!activeObject) return;
+
+  try {
+    const clonedObj = await activeObject.clone();
+
+    clonedObj.set({
+      left: activeObject.left + 10,
+      top: activeObject.top + 10,
+      id: `${activeObject.type || "object"}-${Date.now()}`,
+    });
+
+    canvas.add(clonedObj);
+    canvas.renderAll();
+
+    return clonedObj;
+  } catch (e) {
+    console.error("Error while cloning", e);
+
+    return null;
+  }
+};
+
+export const deletedSelectedObject = async (canvas) => {
+  if (!canvas) return;
+
+  const activeObject = canvas.getActiveObject();
+
+  if (!activeObject) return;
+
+  try {
+    canvas.remove(activeObject);
+    canvas.discardActiveObject();
+    canvas.renderAll();
+
+    return true;
+  } catch (e) {
+    console.error("Error while deleting", e);
+    return false;
+  }
+};
+
+export const customizeBoundingBox = (canvas) => {
+  if (!canvas) return;
+
+  try {
+    canvas.on("object:added", (e) => {
+      if (e.target) {
+        e.target.set({
+          borderColor: "#00ffe7",
+          cornerColor: "#000000",
+          cornerStrokeColor: "#00ffe7",
+          cornerSize: 10,
+          transparentCorners: false,
+        });
+      }
+    });
+
+    canvas.getObjects().forEach((obj) => {
+      obj.set({
+        borderColor: "#00ffe7",
+        cornerColor: "#000000",
+        cornerStrokeColor: "#00ffe7",
+        cornerSize: 10,
+        transparentCorners: false,
+      });
+    });
+
+    canvas.renderAll();
+  } catch (e) {
+    console.error("Failed to customise bounding box", e);
   }
 };

@@ -29,6 +29,21 @@ export const useEditorStore = create((set, get) => ({
   setShowProperties: (falg) => {
     set({ showProperties: falg });
   },
+  markAsModified: () => {
+    const designId = get().designId;
+
+    if (designId) {
+      set({
+        lastModified: Date.now(),
+        saveStatus: "Saving...",
+        isModified: true,
+      });
+
+      get().debouncedSaveToServer();
+    } else {
+      console.error("No design ID Available");
+    }
+  },
   resetStore: () => {
     set({
       canvas: null,

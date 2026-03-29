@@ -15,6 +15,15 @@ const Canvas = () => {
     const cleanUpCanvas = () => {
       if (fabriccanvasRef.current) {
         try {
+          fabriccanvasRef.current.off();
+          fabriccanvasRef.current.off("object:added");
+          fabriccanvasRef.current.off("object:modified");
+          fabriccanvasRef.current.off("object:removed");
+          fabriccanvasRef.current.off("path:created");
+        } catch (error) {
+          console.log("eerror removeing event listeners");
+        }
+        try {
           fabriccanvasRef.current.dispose();
         } catch (error) {
           console.error("error disposing canvas", error);
@@ -54,7 +63,16 @@ const Canvas = () => {
         setCanvas(fabricCanavs);
         console.log("Canvas init is done and set in store");
 
+        const handleCanvasChange = () => {
+         // TODO: implement auto save
+          console.log("Canvase images");
+        };
+
         //TODO:apply custome style for the controllers
+        fabricCanavs.on("object:added", handleCanvasChange);
+        fabricCanavs.on("object:modified", handleCanvasChange);
+        fabricCanavs.on("object:removed", handleCanvasChange);
+        fabricCanavs.on("path:created", handleCanvasChange);
       } catch (error) {
         console.error("failed to load canvas js", error);
       }

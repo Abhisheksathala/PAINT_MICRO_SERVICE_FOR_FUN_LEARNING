@@ -16,6 +16,7 @@ import { Pencil } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import React, { useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const { isEditing, setIsEditing, name, setName, canvas } = useEditorStore();
@@ -84,7 +85,7 @@ const Header = () => {
 
         <DropdownMenu>
           <DropdownMenuTrigger aschild>
-            <button className="flex items-center space-x-2 focus:outline-none ">
+            <Button className="flex items-center space-x-2 focus:outline-none ">
               <Avatar>
                 <AvatarFallback>
                   {session?.user?.name?.[0] || "u"}
@@ -99,7 +100,7 @@ const Header = () => {
               {/* <span className="text-sm font-medium hidden lg:block">
                 {session?.user?.name || "user"}
               </span> */}
-            </button>
+            </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className={"w-56"}>
             <DropdownMenuItem
