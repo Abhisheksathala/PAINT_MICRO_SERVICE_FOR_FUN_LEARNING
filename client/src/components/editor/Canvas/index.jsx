@@ -9,7 +9,7 @@ const Canvas = () => {
   const fabriccanvasRef = useRef(null);
   const initAttemptedRef = useRef(false);
 
-  const { setCanvas } = useEditorStore();
+  const { setCanvas, markAsModified } = useEditorStore();
 
   useEffect(() => {
     const cleanUpCanvas = () => {
@@ -64,7 +64,9 @@ const Canvas = () => {
         console.log("Canvas init is done and set in store");
 
         const handleCanvasChange = () => {
-         // TODO: implement auto save
+          // TODO: implement auto save
+          // COMPLETED:
+          markAsModified();
           console.log("Canvase images");
         };
 
