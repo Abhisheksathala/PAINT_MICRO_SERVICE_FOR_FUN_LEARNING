@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { getuserDesigns } from "@/services/DesignService";
 import { useRouter } from "next/navigation";
+import DesignPreview from "./design-preview";
 function RecentDesigns() {
   const [userDesigns, setUserDesigns] = React.useState([]);
 
@@ -33,7 +34,6 @@ function RecentDesigns() {
         grid-cols-2
         sm:grid-cols-3
         md:grid-cols-4
-        lg:grid-cols-5
         gap-4 "
       >
         {userDesigns && userDesigns.length > 0 ? (
@@ -43,13 +43,15 @@ function RecentDesigns() {
               key={design.id}
             >
               <div className="aspect-video bg-gray-100 rounded-lg mb-2 overflow-hidden transition-shadow group-hover:shadow-md cursor-pointer">
-                <Image
-                  width={200}
-                  height={200}
-                  src={design.image}
-                  alt={design.name}
-                  className="w-full h-full object-cover"
-                />
+                <div className="w-[300px] h-[400px] rounded-lg mb-2 overflow-hidden transition-shadow group-hover:shadow-md cursor-pointer">
+                  {design?.canvasData && (
+                    <DesignPreview
+                      data={design?.canvasData}
+                      key={design._id}
+                      design={design}
+                    />
+                  )}
+                </div>
               </div>
               <p className="font-bold text-sm">{design.name}</p>
             </div>
