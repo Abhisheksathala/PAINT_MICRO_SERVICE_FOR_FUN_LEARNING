@@ -8,10 +8,11 @@ import { CreditCard } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SaveDesign } from "@/services/DesignService";
+import { useEditorStore } from "@/store/store";
 
 const Sidebar = () => {
   const [loading, setLoading] = useState(false);
-
+const {setShowPremiumModel} = useEditorStore()
   const router = useRouter();
 
   const handleCreateNewDesign = async () => {
@@ -75,13 +76,13 @@ const Sidebar = () => {
         ].map((Menuitems, index) => {
           return (
             <div key={index} className="flex flex-col items-center w-full">
-              <Link
-                href={"#"}
-                className="w-full flex flex-col items-center py-2 text-gray-600 hover:text-purple-600"
+              <div
+               onClick={Menuitems.lable === "Billing"?() => setShowPremiumModel(true):null}
+                className="w-full flex flex-col items-center py-2 text-gray-600 hover:text-purple-600 cursor-pointer"
               >
                 <div className="relative">{Menuitems.icon}</div>
                 <span>{Menuitems.lable}</span>
-              </Link>
+              </div>
             </div>
           );
         })}

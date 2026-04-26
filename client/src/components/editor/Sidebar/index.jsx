@@ -14,10 +14,12 @@ import { Upload } from "lucide-react";
 import { ArrowLeft } from "lucide-react";
 import { ChevronsLeft } from "lucide-react";
 import Uploadpannel from "./panels/Upload";
+import { useEditorStore } from "@/store/store";
 
 const Sidebar = () => {
   const [isPanelCollapsed, setIspannelcollapsed] = useState(false);
   const [activeSidebar, setActiveSidebar] = useState(null);
+ 
 
   const handleItemClick = (id) => {
     if (id === activeSidebar && !isPanelCollapsed) return;

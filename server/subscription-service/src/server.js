@@ -3,9 +3,10 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import helmet from "helmet";
+import subscriptionRoute from "./routes/design.routes.js";
 
 const app = express();
-const PORT = process.env?.PORT || 5002;
+const PORT = process.env?.PORT || 5003;
 const MONGO =
   process.env?.MONGO_URI || "mongodb://localhost:27017/design-service";
 
@@ -25,11 +26,12 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/api/subscriptions", subscriptionRoute);
 
 async function startServer() {
   try {
     app.listen(PORT, () => {
-      console.log(`subscribtion Service is running on port ${PORT}${MONGO}`);
+      console.log(`subscribtion Service is running on port ${PORT} ${MONGO}`);
     });
   } catch (error) {
     console.error("Error starting server:", error);

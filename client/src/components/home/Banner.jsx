@@ -1,18 +1,34 @@
 "use client";
 
 import { Crown } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { SaveDesign } from "@/services/DesignService";
 import { useRouter } from "next/navigation";
 import { Loader } from "lucide-react";
+import { getSubscription } from "@/services/Subscribtionservice";
+import { useEditorStore } from "@/store/store";
+import { toast } from "sonner";
 
 const Banner = () => {
   const [loading, setLoading] = useState(false);
+  const {setUserSubscription,userSubscription,userDesigns} = useEditorStore()
 
   const router = useRouter();
 
   const handleCreateNewDesign = async () => {
+    if(userDesigns?.length >= 5 && !userSubscription.isPremium){
+      toast.error('Upgrade to premium to create more designs',{
+        description:"you have reached the maximum number of designs.Please upgrade to a premium plan to create more designs.",
+        action:(
+          <Button onClick={()=>router.push('/subscription')} className="bg-green-600 hover:bg-green-700 text-white">
+            Upgrade to premium
+          </Button>
+        ),
+        duration: 5000,
+      })
+      return 
+    }
     if (loading) return;
     try {
       setLoading(true);
@@ -38,6 +54,17 @@ const Banner = () => {
       setLoading(false)
     }
   };
+
+  const featchsubscription=async()=>{
+     const response  = await getSubscription() 
+     if (response?.success){
+      setUserSubscription(response?.data)
+     }
+    }
+    useEffect(()=>{
+      featchsubscription();
+    },[])
+
 
   return (
     <div className="rounded-xl overflow-hidden bg-gradient-to-r from-[#00c4cc] via-[#8b3dff] to-[#5533ff] text-white p-4 sm:p-8 md:p-8 text-center">

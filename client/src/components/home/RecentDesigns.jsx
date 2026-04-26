@@ -5,8 +5,11 @@ import Image from "next/image";
 import { getuserDesigns } from "@/services/DesignService";
 import { useRouter } from "next/navigation";
 import DesignPreview from "./design-preview";
+import { useEditorStore } from "@/store/store";
 function RecentDesigns() {
-  const [userDesigns, setUserDesigns] = React.useState([]);
+ 
+
+  const {userDesigns} = useEditorStore()
 
   const router = useRouter();
   // const designs = Array(6)
@@ -17,14 +20,7 @@ function RecentDesigns() {
   //     image: `https://picsum.photos/400/300?random=${i}`,
   //   }));
 
-  async function FeatchuserDesigns() {
-    const results = await getuserDesigns();
-    setUserDesigns(results.data);
-  }
 
-  React.useEffect(() => {
-    FeatchuserDesigns();
-  }, []);
 
   return (
     <div>

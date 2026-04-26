@@ -29,6 +29,20 @@ export const useEditorStore = create((set, get) => ({
     set({ name: value });
   },
 
+  userSubscription: null,
+  setUserSubscription: (data) => {
+    set({ userSubscription: data });
+  },
+  showPremiumModel : false,
+  setShowPremiumModel: (falg) => {
+    set({ showPremiumModel: falg });
+  },
+
+  userDesigns : [],
+  setUserDesigns: (data) => {
+    set({ userDesigns: data });
+  },
+
   showProperties: false,
 
   setShowProperties: (falg) => {
