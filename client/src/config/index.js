@@ -1,6 +1,6 @@
 const {
   Youtube,
-  Image,
+  Image: ImageIcon,
   Palette,
   Heart,
   Type,
@@ -20,7 +20,7 @@ export const designTypes = [
     height: 500,
   },
   {
-    icon: <Image className="h-6 w-6 text-white" />,
+    icon: <ImageIcon className="h-6 w-6 text-white" />,
     label: "Logo Design",
     bgColor: "bg-purple-500",
     width: 400,

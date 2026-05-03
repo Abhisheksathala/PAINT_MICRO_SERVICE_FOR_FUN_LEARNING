@@ -73,6 +73,7 @@ const DesignPreview = ({ design }) => {
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [design._id, canvasId]);
 
   return (
