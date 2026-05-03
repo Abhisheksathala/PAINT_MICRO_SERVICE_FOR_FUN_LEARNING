@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import Dialog, { DialogContent, DialogTitle } from '../ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from '../ui/dialog';
 import { Button } from '../ui/button';
 import { useEditorStore } from '@/store/store';
 
@@ -32,7 +32,7 @@ const SubscriptionModal = ({ isopen, onClose }) => {
                     <span className="text-green-600 mr-2">&#9733;</span>
                     Unlock Premium Features
                   </DialogTitle>
-                  <DialogDescription>
+                  <DialogDescription className="flex items-center justify-center">
                     <p>This feature is only available for premium members. Please upgrade to a premium plan to access this feature.</p>
                     <Button onClick={handleUpgrade}>Upgrade</Button>
                   </DialogDescription>

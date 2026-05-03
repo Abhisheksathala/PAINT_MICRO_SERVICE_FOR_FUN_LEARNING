@@ -10,22 +10,22 @@ const getUserDesigns = async (req, res) => {
 
     const designs = await desigenModel.find({ userId: userId });
 
-    if (!designs) {
-      res.status(404).json({
+    if (!designs || designs.length === 0) {
+      return res.status(404).json({
         success: false,
         message: "No designs avalable ",
       });
     }
     console.log("designs", designs);
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: designs,
       message: "getUserDesigns featched successfully",
     });
   } catch (error) {
     console.log("Error featching design of user", error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error?.message || "Failed to fetch design ",
     });
@@ -38,22 +38,22 @@ const getUserDesignByID = async (req, res) => {
     const userId = req.userId;
     const designId = req.params.id;
 
-    const design = await desigenModel.findById({ _id: designId, userId });
+    const design = await desigenModel.findOne({ _id: designId, userId });
 
     if (!design) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         message: " designs not found or u dont have permission to view it ",
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       data: design,
       message: "getUserDesigns featched successfully",
     });
   } catch (error) {
     console.log("Error featching design by ID", error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error?.message || "Failed to fetch design ",
     });
@@ -67,10 +67,10 @@ const saveDesign = async (req, res) => {
     const { designId, name, canvasData, width, height, category } = req.body;
 
     if (designId) {
-      const design = await desigenModel.findById({ _id: designId, userId });
+      const design = await desigenModel.findOne({ _id: designId, userId });
 
       if (!design) {
-        res.status(404).json({
+        return res.status(404).json({
           success: false,
           message: " designs not found or u dont have permission to view it ",
         });
@@ -85,7 +85,7 @@ const saveDesign = async (req, res) => {
 
       const updatedDesign = await design.save();
 
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         data: updatedDesign,
         message: "updated  successfully",
@@ -121,23 +121,23 @@ const DeletDesign = async (req, res) => {
     // const userId = req.user.userId;
     const userId = req.userId;
     const designId = req.params.id;
-    const design = await desigenModel.findById({ _id: designId, userId });
+    const design = await desigenModel.findOne({ _id: designId, userId });
     if (!design) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         message: " designs not found or u dont have permission to delet  it ",
       });
     }
 
-    await design.deleteOne({ _id: designId });
+    await design.deleteOne();
 
-    res.status(200).json({
-      success: false,
+    return res.status(200).json({
+      success: true,
       message: " design deleted successfully",
     });
   } catch (error) {
     console.log("Error while DeletDesign", error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: error?.message || "Failed to dlete design ",
     });

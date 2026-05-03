@@ -1,3 +1,5 @@
+"use client";
+
 import MainEditor from '@/components/editor'
 import React from 'react'
 import { getSubscription } from '@/services/Subscribtionservice';

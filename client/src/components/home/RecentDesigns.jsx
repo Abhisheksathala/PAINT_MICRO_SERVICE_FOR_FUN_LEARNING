@@ -2,25 +2,28 @@
 
 import React from "react";
 import Image from "next/image";
-import { getuserDesigns } from "@/services/DesignService";
+import { getuserDesigns, DeleteDesign } from "@/services/DesignService";
 import { useRouter } from "next/navigation";
 import DesignPreview from "./design-preview";
 import { useEditorStore } from "@/store/store";
+import { Trash2 } from "lucide-react";
+
 function RecentDesigns() {
- 
-
-  const {userDesigns} = useEditorStore()
-
+  const { userDesigns, setUserDesigns } = useEditorStore();
   const router = useRouter();
-  // const designs = Array(6)
-  //   .fill(null)
-  //   .map((_, i) => ({
-  //     id: i,
-  //     title: `Design ${i + 1}`,
-  //     image: `https://picsum.photos/400/300?random=${i}`,
-  //   }));
 
-
+  const handleDelete = async (e, designId) => {
+    e.stopPropagation();
+    try {
+      const res = await DeleteDesign(designId);
+      if (res?.success) {
+        const results = await getuserDesigns();
+        setUserDesigns(results?.data || []);
+      }
+    } catch (error) {
+      console.log("Error deleting design:", error);
+    }
+  };
 
   return (
     <div>
@@ -36,10 +39,12 @@ function RecentDesigns() {
           userDesigns.map((design) => (
             <div
               onClick={() => router.push(`/edit/${design?._id}`)}
-              key={design.id}
+              key={design._id || design.id}
+              className="group flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 cursor-pointer"
             >
-              <div className="aspect-video bg-gray-100 rounded-lg mb-2 overflow-hidden transition-shadow group-hover:shadow-md cursor-pointer">
-                <div className="w-[300px] h-[400px] rounded-lg mb-2 overflow-hidden transition-shadow group-hover:shadow-md cursor-pointer">
+              {/* Image Preview Container */}
+              <div className="relative aspect-square w-full bg-gray-50/50 flex items-center justify-center overflow-hidden border-b border-gray-100">
+                <div className="pointer-events-none flex items-center justify-center w-full h-full transform scale-[0.6] sm:scale-75 md:scale-[0.8] origin-center transition-transform group-hover:scale-[0.85]">
                   {design?.canvasData && (
                     <DesignPreview
                       data={design?.canvasData}
@@ -48,8 +53,26 @@ function RecentDesigns() {
                     />
                   )}
                 </div>
+
+                {/* Delete Button */}
+                <button
+                  onClick={(e) => handleDelete(e, design._id)}
+                  className="absolute top-3 right-3 p-2 bg-white text-red-500 border border-gray-200 rounded-full opacity-0 group-hover:opacity-100 shadow-sm transition-all duration-200 hover:bg-red-50 hover:text-red-600 hover:border-red-200 z-10"
+                  title="Delete Design"
+                >
+                  <Trash2 size={16} />
+                </button>
               </div>
-              <p className="font-bold text-sm">{design.name}</p>
+
+              {/* Card Footer */}
+              <div className="p-3 bg-white">
+                <p className="font-semibold text-gray-800 text-sm truncate">
+                  {design.name || "Untitled Design"}
+                </p>
+                <p className="text-xs text-gray-400 mt-0.5">
+                  Click to edit
+                </p>
+              </div>
             </div>
           ))
         ) : (
