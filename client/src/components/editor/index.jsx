@@ -93,12 +93,14 @@ const MainEditor = () => {
               canvasData.objects && canvasData.objects.length > 0;
 
             if (canvasData.background) {
+              // eslint-disable-next-line react-hooks/immutability
               canvas.backgroundColor = canvasData.background;
               // canvas.setBackgroundColor(
               //   canvasData.background,
               //   canvas.renderAll.bind(canvas),
               // );
             } else {
+              // eslint-disable-next-line react-hooks/immutability
               canvas.backgroundColor = "#ffffff";
             }
 
@@ -115,6 +117,7 @@ const MainEditor = () => {
             canvas.clear();
             canvas.setWidth(design.width);
             canvas.setHeight(design.height);
+            // eslint-disable-next-line react-hooks/immutability
             canvas.backgroundColor = "#ffffff";
             canvas.renderAll();
           }

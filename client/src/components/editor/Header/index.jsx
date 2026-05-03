@@ -31,6 +31,7 @@ const Header = () => {
 
   useEffect(() => {
     if (!canvas) return;
+    // eslint-disable-next-line react-hooks/immutability
     canvas.selection = isEditing;
     canvas.getObjects().forEach((obj) => {
       obj.selectable = isEditing;

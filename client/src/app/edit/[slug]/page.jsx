@@ -7,7 +7,7 @@ import { getuserDesigns } from '@/services/DesignService';
 import { useEditorStore } from '@/store/store';
 import { useEffect } from 'react';
 
-const page = () => {
+const Page = () => {
   const { setUserSubscription, setUserDesigns } = useEditorStore()
 
 
