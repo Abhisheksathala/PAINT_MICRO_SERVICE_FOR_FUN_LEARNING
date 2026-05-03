@@ -54,7 +54,7 @@ const Home = () => {
               <p className="font-semibold text-gray-700">Developed by Abhishek Sathala</p>
               <div className="flex items-center space-x-4">
                 <a 
-                  href="https://github.com/Abhisheksathala" 
+                  href="https://github.com/Abhisheksathala/PAINT_MICRO_SERVICE_FOR_FUN_LEARNING" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-blue-600 transition-colors flex items-center space-x-1"
@@ -64,7 +64,7 @@ const Home = () => {
                 </a>
                 <span className="text-gray-300">|</span>
                 <a 
-                  href="https://linkedin.com/in/YOUR_LINKEDIN_PROFILE" 
+                  href="https://www.linkedin.com/in/abhishek-sathala/"
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-blue-600 transition-colors flex items-center space-x-1"

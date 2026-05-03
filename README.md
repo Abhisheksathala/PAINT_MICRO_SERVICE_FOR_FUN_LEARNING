@@ -150,7 +150,7 @@ This project explicitly satisfies the assignment's evaluation rubric:
 <div align="center">
   <p><strong>Developed by Abhishek Sathala</strong></p>
   <p>
-    <a href="https://github.com/Abhisheksathala">GitHub Profile</a> • 
-    <a href="https://linkedin.com/in/YOUR_LINKEDIN_PROFILE">LinkedIn Profile</a>
+    <a href="https://github.com/Abhisheksathala/PAINT_MICRO_SERVICE_FOR_FUN_LEARNING">GitHub Repository</a> • 
+    <a href="https://www.linkedin.com/in/abhishek-sathala/">LinkedIn Profile</a>
   </p>
 </div>
