@@ -68,3 +68,4 @@ app.listen(PORT, () => {
     `Subscription Service: ${process.env.SUBSCRIPTION || "http:localhost:5003"}`,
   );
 });
+
