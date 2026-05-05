@@ -6,9 +6,10 @@ export const getsubscribtion = async (req, res) => {
   const userId = req?.userId
   console.log("userId", userId);
   try {
-    const subscription = await SubscriptionModel.findOne({ userId: userId });
+    let subscription = await SubscriptionModel.findOne({ userId: userId });
     if (!subscription) {
       subscription = new SubscriptionModel({ userId: userId })
+      await subscription.save()
     }
     return res.status(200).json({
       success: true,

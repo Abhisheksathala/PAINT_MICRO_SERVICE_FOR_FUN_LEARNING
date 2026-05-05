@@ -2,7 +2,7 @@ import axios from "axios";
 import { setEnv } from "fabric";
 import { getSession } from "next-auth/react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"; 
+const API_URL = process.env.API_URL || "https://canvasify-api-gateway.onrender.com/"; 
 
 export async function fetchWithAuth(endpoint, options = {}) {
   const session = await getSession();
