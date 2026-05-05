@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react";
 import { fetchWithAuth } from "./baseService";
 import { method } from "lodash";
 
-const API_URL = process.env.API_URL || "http://localhost:5000";
+const API_URL = process.env.API_URL || "https://canvasify-api-gateway.onrender.com";
 
 export async function uploadFileWithAuth(file, metaData = {}) {
   try {
